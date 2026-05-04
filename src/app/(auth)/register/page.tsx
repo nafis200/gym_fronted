@@ -44,7 +44,7 @@ export default function RegisterPage() {
   const onSubmit = async (data: RegisterForm) => {
     setIsLoading(true);
     try {
-      // Backend expects { name, email, password }
+      
       const { confirmPassword, ...registerData } = data;
       await api.post("/auth/register", registerData);
       

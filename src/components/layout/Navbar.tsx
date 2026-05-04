@@ -32,10 +32,6 @@ const Navbar = () => {
   const router = useRouter();
 
   const links = [
-    { href: "/rooms", label: t("nav.rooms") },
-    { href: "/policy", label: t("nav.policies") },
-    { href: "/amenities", label: t("nav.amenities") },
-    { href: "/gallery", label: t("nav.gallery") },
     { href: "/about", label: t("nav.about") },
     { href: "/contact", label: t("nav.contact") },
   ];

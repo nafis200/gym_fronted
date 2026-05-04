@@ -10,7 +10,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Hotel Book Management | Premium Experience",
+  title: "Gymanis",
   description: "Book your luxury stay with ease.",
 };
 
@@ -31,7 +31,7 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased flex flex-col",
-          outfit.variable
+          outfit.variable,
         )}
       >
         <ThemeProvider
@@ -44,9 +44,7 @@ export default function RootLayout({
             <Toaster position="top-right" richColors />
             <AuthProvider>
               <Navbar />
-              <main className="flex-1">
-                {children}
-              </main>
+              <main className="flex-1">{children}</main>
               <Footer />
             </AuthProvider>
           </QueryProvider>
