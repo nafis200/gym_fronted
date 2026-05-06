@@ -20,6 +20,18 @@ export const translations = {
             ctaSecondary: "View Activities",
             communityStats: "Join 12,000+ active students & athletes",
         },
+        statistics: {
+            title: "Proven Results",
+            subtitle: "Join thousands of athletes who have transformed their fitness journey with us.",
+            students: "Active Members",
+            awards: "Awards Won",
+            years: "Years Experience",
+            success: "Success Rate",
+        },
+        gallery: {
+            title: "Image Gallery",
+            subtitle: "Explore our state-of-the-art facilities and training environments.",
+        },
         rooms: {
             title: "Our Exclusive Room Suites",
             description: "Handpicked selection of our finest accommodations.",
@@ -122,6 +134,18 @@ export const translations = {
             cta: "Pesan Sesi Pelatihan",
             ctaSecondary: "Lihat Aktivitas",
             communityStats: "Bergabunglah dengan 12.000+ siswa & atlet aktif",
+        },
+        statistics: {
+            title: "Hasil Terbukti",
+            subtitle: "Bergabunglah dengan ribuan atlet yang telah mengubah perjalanan kebugaran mereka bersama kami.",
+            students: "Anggota Aktif",
+            awards: "Penghargaan Diraih",
+            years: "Tahun Pengalaman",
+            success: "Tingkat Keberhasilan",
+        },
+        gallery: {
+            title: "Galeri Gambar",
+            subtitle: "Jelajahi fasilitas dan lingkungan pelatihan kami yang terkini.",
         },
         rooms: {
             title: "Kategori Kamar Eksklusif Kami",
@@ -226,6 +250,18 @@ export const translations = {
             ctaSecondary: "Lihat Aktiviti",
             communityStats: "Sertai 12,000+ pelajar & atlet aktif",
         },
+        statistics: {
+            title: "Keputusan Terbukti",
+            subtitle: "Sertai beribu-ubah atlet yang telah mengubah perjalanan kecergasan mereka bersama kami.",
+            students: "Ahli Aktif",
+            awards: "Anugerah Dimenang",
+            years: "Tahun Pengalaman",
+            success: "Kadar Kejayaan",
+        },
+        gallery: {
+            title: "Galeri Imej",
+            subtitle: "Terokai kemudahan dan persekitaran latihan kami yang terkini.",
+        },
         rooms: {
             title: "Kategori Bilik Eksklusif Kami",
             description: "Pilihan penginapan terbaik kami yang dipilih sendiri.",
@@ -329,6 +365,18 @@ export const translations = {
             ctaSecondary: "Etkinlikleri Görüntüle",
             communityStats: "12.000+ aktif öğrenci ve sporcuya katılın",
         },
+        statistics: {
+            title: "Kanıtlanmış Sonuçlar",
+            subtitle: "Bizimle fitness yolculuklarını dönüştüren binlerce sporcuya katılın.",
+            students: "Aktif Üyeler",
+            awards: "Kazanılan Ödüller",
+            years: "Yıl Deneyim",
+            success: "Başarı Oranı",
+        },
+        gallery: {
+            title: "Görsel Galeri",
+            subtitle: "Son teknoloji tesislerimizi ve eğitim ortamlarımızı keşfedin.",
+        },
         rooms: {
             title: "Özel Oda Kategorilerimiz",
             description: "En iyi konaklama yerlerimizden özenle seçilmiş seçki.",
@@ -431,6 +479,18 @@ export const translations = {
             cta: "احجز جلسة تدريب",
             ctaSecondary: "عرض الأنشطة",
             communityStats: "انضم إلى 12,000+ طلاب ورياضيين نشطين",
+        },
+        statistics: {
+            title: "نتائج مثبتة",
+            subtitle: "انضم إلى آلاف الرياضيين الذين غيروا رحلة اللياقة الخاصة بهم معنا.",
+            students: "أعضاء نشطون",
+            awards: "الجوائز المحققة",
+            years: "سنوات الخبرة",
+            success: "معدل النجاح",
+        },
+        gallery: {
+            title: "معرض الصور",
+            subtitle: "استكشف مرافقنا الحديثة وبيئات التدريب لدينا.",
         },
         rooms: {
             title: "فئات غرفنا الحصرية",

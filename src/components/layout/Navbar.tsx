@@ -132,14 +132,14 @@ const Navbar = () => {
              <UserMenu />
           ) : (
             <div className="flex items-center gap-2">
-              <Link href="/login" passHref legacyBehavior>
-                <Button variant="ghost" size="sm" asChild>
-                  <a>{t("nav.login")}</a>
+              <Link href="/login">
+                <Button variant="ghost" size="sm">
+                  {t("nav.login")}
                 </Button>
               </Link>
-              <Link href="/register" passHref legacyBehavior>
-                <Button size="sm" asChild>
-                  <a>{t("nav.register")}</a>
+              <Link href="/register">
+                <Button size="sm">
+                  {t("nav.register")}
                 </Button>
               </Link>
             </div>
@@ -175,21 +175,21 @@ const Navbar = () => {
               </Link>
             ))}
           </nav>
-          <div className="pt-4 flex flex-col gap-2">
-             {!user ? (
+<div className="pt-4 flex flex-col gap-2">
+              {!user ? (
                 <>
-                  <Link href="/login" passHref legacyBehavior onClick={() => setIsOpen(false)}>
-                    <Button variant="ghost" className="w-full justify-start" asChild>
-                      <a>Login</a>
+                  <Link href="/login" onClick={() => setIsOpen(false)}>
+                    <Button variant="ghost" className="w-full justify-start">
+                      Login
                     </Button>
                   </Link>
-                  <Link href="/register" passHref legacyBehavior onClick={() => setIsOpen(false)}>
-                    <Button className="w-full justify-start" asChild>
-                      <a>Register</a>
+                  <Link href="/register" onClick={() => setIsOpen(false)}>
+                    <Button className="w-full justify-start">
+                      Register
                     </Button>
                   </Link>
                 </>
-             ) : (
+              ) : (
                <div className="space-y-2">
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
                     <Avatar className="h-10 w-10">

@@ -24,6 +24,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Hero } from "@/components/layout/Hero";
+import { Statistics } from "@/components/layout/Statistics";
+import { Gallery } from "@/components/layout/Gallery";
 import { useRoomStore } from "@/store/useRoomStore";
 import {
   Accordion,
@@ -65,6 +67,8 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Hero />
+      <Statistics />
+      <Gallery />
 
       {/* Introduction */}
       <section className="py-20 bg-background">
