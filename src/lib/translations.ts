@@ -32,6 +32,33 @@ export const translations = {
             title: "Image Gallery",
             subtitle: "Explore our state-of-the-art facilities and training environments.",
         },
+        blog: {
+            title: "Latest Blogs",
+            subtitle: "Stay updated with the latest tips, news, and insights from our experts.",
+            viewAll: "View All Posts",
+            post1: {
+                title: "5 Essential Exercises for Building Strength",
+                excerpt: "Discover the foundational exercises that will help you build muscle and improve your overall fitness.",
+            },
+            post2: {
+                title: "Nutrition Guide for Peak Performance",
+                excerpt: "Learn how to fuel your body properly to achieve maximum results in your training.",
+            },
+            post3: {
+                title: "The Importance of Rest and Recovery",
+                excerpt: "Understanding why rest days are crucial for your fitness journey and how to make the most of them.",
+            },
+        },
+        testimonials: {
+            title: "What Our Clients Say",
+            subtitle: "Hear from our satisfied clients about their experience with us.",
+            quote1: "This gym has completely transformed my fitness journey. The coaches are incredibly knowledgeable and supportive.",
+            quote2: "Best decision I ever made! The community here is amazing and the facilities are top-notch.",
+            quote3: "The personalized training programs helped me achieve my marathon goals faster than I imagined.",
+            quote4: "Outstanding trainers and equipment. I've never felt more motivated to workout.",
+            quote5: "CrossFit has never been better. The coaches push you to be your best every single day.",
+            quote6: "The yoga classes here have brought balance to my life. Highly recommend to everyone.",
+        },
         rooms: {
             title: "Our Exclusive Room Suites",
             description: "Handpicked selection of our finest accommodations.",
@@ -146,6 +173,33 @@ export const translations = {
         gallery: {
             title: "Galeri Gambar",
             subtitle: "Jelajahi fasilitas dan lingkungan pelatihan kami yang terkini.",
+        },
+        blog: {
+            title: "Blog Terbaru",
+            subtitle: "Tetap terkini dengan tips, berita, dan wawasan terbaru dari ahli kami.",
+            viewAll: "Lihat Semua Postingan",
+            post1: {
+                title: "5 Latihan Esensial untuk Membangun Kekuatan",
+                excerpt: "Temukan latihan dasar yang akan membantu Anda membangun otot dan meningkatkan kebugaran secara keseluruhan.",
+            },
+            post2: {
+                title: "Panduan Nutrisi untuk Performa Tertinggi",
+                excerpt: "Pelajari cara mengisi bahan bakar tubuh Anda dengan benar untuk mencapai hasil maksimal dalam pelatihan.",
+            },
+            post3: {
+                title: "Pentingnya Istirahat dan Pemulihan",
+                excerpt: "Memahami mengapa hari istirahat sangat penting untuk perjalanan kebugaran Anda dan cara memanfaatkannya dengan maksimal.",
+            },
+        },
+        testimonials: {
+            title: "Kata Klien Kami",
+            subtitle: "Dengarkan dari klien kami yang puas tentang pengalaman mereka dengan kami.",
+            quote1: "Gym ini telah mengubah perjalanan kebugaran saya sepenuhnya. Pelatih sangat berpengetahuan dan mendukung.",
+            quote2: "Keputusan terbaik yang pernah saya buat! Komunitas di sini luar biasa dan fasilitasnya terbaik.",
+            quote3: "Program pelatihan yang dipersonalisasi membantu saya mencapai tujuan maraton saya lebih cepat dari yang saya bayangkan.",
+            quote4: "Pelatih dan peralatan yang luar biasa. Saya tidak pernah merasa lebih termotivasi untuk berlatih.",
+            quote5: "CrossFit tidak pernah lebih baik. Pelatih mendorong Anda untuk terbaik setiap hari.",
+            quote6: "Kelas yoga di sini telah membawa keseimbangan dalam hidup saya. Sangat direkomendasikan untuk semua orang.",
         },
         rooms: {
             title: "Kategori Kamar Eksklusif Kami",
@@ -262,6 +316,33 @@ export const translations = {
             title: "Galeri Imej",
             subtitle: "Terokai kemudahan dan persekitaran latihan kami yang terkini.",
         },
+        blog: {
+            title: "Blog Terbaru",
+            subtitle: "Kemas kini dengan tips, berita, dan pandangan terkini dari pakar kami.",
+            viewAll: "Lihat Semua Post",
+            post1: {
+                title: "5 Latihan Asas untuk Membina Kekuatan",
+                excerpt: "Temui latihan asas yang akan membantu anda membina otot dan meningkatkan kecergasan keseluruhan anda.",
+            },
+            post2: {
+                title: "Panduan Nutrisi untuk Prestasi Maksimum",
+                excerpt: "Ketahui cara membakar badan anda dengan betul untuk mencapai hasil maksimum dalam latihan.",
+            },
+            post3: {
+                title: "Kepentingan Rehat dan Pemulihan",
+                excerpt: "Memahami mengapa hari rehat penting untuk perjalanan kecergasan anda dan cara memanfaatkannya dengan maksimum.",
+            },
+        },
+        testimonials: {
+            title: "Apa Kata Klien Kami",
+            subtitle: "Dengar dari klien kami yang berpuas hati tentang pengalaman mereka dengan kami.",
+            quote1: "Gym ini telah mengubah perjalanan kecergasan saya sepenuhnya. Jurulatih sangat berpengetahuan dan menyokong.",
+            quote2: "Keputusan terbaik yang pernah saya buat! Komuniti di sini luar biasa dan kemudahannya terbaik.",
+            quote3: "Program latihan yang diperibadikan membantu saya mencapai matlamat maraton saya lebih cepat dari yang saya bayangkan.",
+            quote4: "Jurulatih dan peralatan yang luar biasa. Saya tidak pernah rasa lebih motivation untuk bersenam.",
+            quote5: "CrossFit tidak pernah lebih baik. Jurulatih mendorong anda untuk terbaik setiap hari.",
+            quote6: "Kelas yoga di sini telah membawa keseimbangan dalam hidup saya. Highly recommend kepada semua orang.",
+        },
         rooms: {
             title: "Kategori Bilik Eksklusif Kami",
             description: "Pilihan penginapan terbaik kami yang dipilih sendiri.",
@@ -377,6 +458,33 @@ export const translations = {
             title: "Görsel Galeri",
             subtitle: "Son teknoloji tesislerimizi ve eğitim ortamlarımızı keşfedin.",
         },
+        blog: {
+            title: "Son Blog Yazıları",
+            subtitle: "Uzmanlarımızdan en son ipuçları, haberler ve içgörülerle güncel kalın.",
+            viewAll: "Tüm Yazıları Görüntüle",
+            post1: {
+                title: "Güç İnşa Etmek İçin 5 Temel Egzersiz",
+                excerpt: "Kas geliştirmenize ve genel fitnessınızı iyileştirmeye yardımcı olacak temel egzersizleri keşfedin.",
+            },
+            post2: {
+                title: "Tepe Performansı İçin Beslenme Rehberi",
+                excerpt: "Eğitimde maksimum sonuçlar elde etmek için vücudunuzu doğru şekilde yakıtlamayı öğrenin.",
+            },
+            post3: {
+                title: "Dinlenme ve Toparlanmanın Önemi",
+                excerpt: "Neden dinlenme günlerinin fitness yolculuğunuz için çok önemli olduğunu ve onlardan en iyi şekilde nasıl yararlanacağınızı anlayın.",
+            },
+        },
+        testimonials: {
+            title: "Müşterilerimiz Ne Diyor",
+            subtitle: "Bizimle deneyimleri hakkında memnun müşterilerimizden duyular.",
+            quote1: "Bu spor salonu fitness yolculuğumu tamamen değiştirdi. Antrenörler son derece bilgili ve destekleyici.",
+            quote2: "Aldığım en iyi karar! Buradaki topluluk harika ve tesisler birinci sınıf.",
+            quote3: "Kişiselleştirilmiş antrenman programları maraton hedeflerime hayal ettiğimden daha hızlı ulaşmamı sağladı.",
+            quote4: "Mükemmel antrenörler ve ekipman. Hiç bu kadar motive olmamıştım.",
+            quote5: "CrossFit hiç bu kadar iyi olmamıştı. Antrenörler her gün sizi en iyi versiyonunuz olmaya itiyor.",
+            quote6: "Buradaki yoga dersleri hayatıma denge getirdi. Herkese şiddetle tavsiye ederim.",
+        },
         rooms: {
             title: "Özel Oda Kategorilerimiz",
             description: "En iyi konaklama yerlerimizden özenle seçilmiş seçki.",
@@ -491,6 +599,33 @@ export const translations = {
         gallery: {
             title: "معرض الصور",
             subtitle: "استكشف مرافقنا الحديثة وبيئات التدريب لدينا.",
+        },
+        blog: {
+            title: "أحدث المدونات",
+            subtitle: "ابق على اطلاع بأحدث النصائح والأخبار والرؤى من خبرائنا.",
+            viewAll: "عرض جميع المنشورات",
+            post1: {
+                title: "5 تمارين أساسية لبناء القوة",
+                excerpt: "اكتشف التمارين الأساسية التي ستساعدك على بناء العضلات وتحسين لياقتك العامة.",
+            },
+            post2: {
+                title: "دليل التغذية للأداء الأمثل",
+                excerpt: "تعلم كيفية تزود جسمك بشكل صحيح لتحقيق أقصى النتائج في تدريبك.",
+            },
+            post3: {
+                title: "أهمية الراحة والتعافي",
+                excerpt: "فهم why days الراحة ضرورية لرحلتك اللياقية وكيفية الاستفادة最大化 منها.",
+            },
+        },
+        testimonials: {
+            title: "ماذا يقول عملاؤنا",
+            subtitle: "استمع إلى عملائنا السعداء حول تجربتهم معنا.",
+            quote1: "هذا الصالة الرياضية غيرت رحلة اللياقة الخاصة بي تمامًا. المدربون متعلمون للغاية وداعمون.",
+            quote2: "أفضل قرار اتخذته على الإطلاق! المجتمع هنا رائع والمرافق من الطراز الأول.",
+            quote3: "ساعدتني برامج التدريب الشخصية على تحقيق أهداف الماراثون بسرعة أكبر مما كنت أتخيل.",
+            quote4: "مدربين ومعدات استثنائية. لم أشعر أبدًا بدافع أكبر للتمرين.",
+            quote5: "لم يكن CrossFit أفضل من هذا. المدربون يدفعونكونك لأفضل ما لديكم كل يوم.",
+            quote6: "جلبت.classes yoga هنا توازنًا لحياتي. أوصي الجميع بشدة.",
         },
         rooms: {
             title: "فئات غرفنا الحصرية",

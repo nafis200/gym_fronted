@@ -5,7 +5,7 @@ import { useAuthStore } from "@/store/useAuthStore";
 import api from "@/lib/axios";
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
-    const { login, logout, user, isAuthenticated } = useAuthStore();
+    const { login, logout, user, isAuthenticated, accessToken } = useAuthStore();
     const [isLoading, setIsLoading] = useState(true);
     const [hasChecked, setHasChecked] = useState(false);
 
@@ -21,7 +21,6 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
                 }
             } catch (error: any) {
                 console.log("AuthProvider: session check failed", error.response?.status || error.message);
-                // Only logout if explicitly unauthorized, otherwise might be a network/server flit
                 if (error.response?.status === 401 || error.response?.status === 403) {
                     if (isAuthenticated) logout();
                 }
@@ -31,16 +30,15 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
             }
         };
 
-        // If we already have a user fromzustand persist, we don't need to block UI
-        if (user && !hasChecked) {
-            setIsLoading(false);
-            fetchProfile(); // but still verify in background
-        } else if (!hasChecked) {
+        if (accessToken && !hasChecked) {
             fetchProfile();
+        } else if (!accessToken && !hasChecked) {
+            setIsLoading(false);
+            setHasChecked(true);
         }
-    }, [login, logout, isAuthenticated, hasChecked, user]);
+    }, [login, logout, isAuthenticated, hasChecked, accessToken]);
 
-    if (isLoading) {
+    if (isLoading && !hasChecked) {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>

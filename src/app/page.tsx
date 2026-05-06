@@ -26,6 +26,8 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { Hero } from "@/components/layout/Hero";
 import { Statistics } from "@/components/layout/Statistics";
 import { Gallery } from "@/components/layout/Gallery";
+import { Blogs } from "@/components/layout/Blogs";
+import { Testimonials } from "@/components/layout/Testimonials";
 import { useRoomStore } from "@/store/useRoomStore";
 import {
   Accordion,
@@ -69,6 +71,8 @@ export default function Home() {
       <Hero />
       <Statistics />
       <Gallery />
+      <Blogs />
+      <Testimonials />
 
       {/* Introduction */}
       <section className="py-20 bg-background">
