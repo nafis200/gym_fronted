@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useTranslation } from "@/hooks/useTranslation";
+import { Hero } from "@/components/layout/Hero";
 import { useRoomStore } from "@/store/useRoomStore";
 import {
   Accordion,
@@ -63,70 +64,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[90vh] flex items-center justify-center bg-slate-900 text-white overflow-hidden">
-        <div 
-          className="absolute inset-0 z-0 opacity-50 bg-cover bg-center"
-          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070&auto=format&fit=crop")' }}
-        />
-        <div className="absolute inset-0 bg-black/40 z-0" />
-        
-        <div className="relative z-10 container text-center space-y-6">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight animate-fade-in-up">
-            {t("hero.title")}
-          </h1>
-          <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
-            {t("hero.description")}
-          </p>
-          
-          <Card className="max-w-4xl mx-auto mt-8 bg-white/10 backdrop-blur-md border-white/20 text-left">
-            <CardContent className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-white">Check In</Label>
-                  <Input 
-                    type="date" 
-                    value={checkIn}
-                    onChange={(e) => setCheckIn(e.target.value)}
-                    className="bg-transparent border-white/50 focus-visible:ring-white text-white placeholder:text-gray-400" 
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-white">Check Out</Label>
-                  <Input 
-                    type="date" 
-                    value={checkOut}
-                    onChange={(e) => setCheckOut(e.target.value)}
-                    className="bg-transparent border-white/50 focus-visible:ring-white text-white placeholder:text-gray-400" 
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-white">Guests</Label>
-                  <Select value={guests} onValueChange={setGuests}>
-                    <SelectTrigger className="bg-transparent border-white/50 focus:ring-white text-white">
-                      <SelectValue placeholder="Select guests" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">1 Adult, 0 Children</SelectItem>
-                      <SelectItem value="2">2 Adults, 0 Children</SelectItem>
-                      <SelectItem value="3">2 Adults, 1 Child</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="flex items-end">
-                  <Button 
-                    size="lg" 
-                    onClick={handleSearch}
-                    className="w-full bg-white text-black hover:bg-gray-200"
-                  >
-                    {t("hero.cta")}
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+      <Hero />
 
       {/* Introduction */}
       <section className="py-20 bg-background">
