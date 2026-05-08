@@ -106,7 +106,7 @@ const Navbar = () => {
 
         {/* Logo */}
         <Link href="/" className="text-xl font-bold">
-          LuxeStay
+          FitNest
         </Link>
 
         {/* Desktop Nav */}
