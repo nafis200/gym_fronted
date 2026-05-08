@@ -86,12 +86,6 @@ const Navbar = () => {
             <LayoutDashboard className="mr-2 h-4 w-4" />
             Dashboard
           </DropdownMenuItem>
-
-          <DropdownMenuItem onClick={() => router.push("/user/settings")}>
-            <Settings className="mr-2 h-4 w-4" />
-            Profile Settings
-          </DropdownMenuItem>
-
           <DropdownMenuSeparator />
 
           <DropdownMenuItem

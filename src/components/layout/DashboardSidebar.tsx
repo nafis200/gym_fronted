@@ -38,7 +38,7 @@ const DashboardSidebar = () => {
           { name: "Show And Delete Video", href: "/admin/show_video", icon: Shield },
           { name: "Users", href: "/admin/users", icon: User },
           { name: "Change Password", href: "/admin/changepassword", icon: User },
-          { name: "Settings", href: "/admin/settings", icon: Settings },
+          { name: "Profile", href: "/admin/profile", icon: Settings },
         ]
       : [
           { name: "Dashboard", href: "/user", icon: LayoutDashboard },
