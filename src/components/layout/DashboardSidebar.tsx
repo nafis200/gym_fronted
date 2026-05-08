@@ -34,6 +34,8 @@ const DashboardSidebar = () => {
           { name: "Admin Dashboard", href: "/admin", icon: Shield },
           { name: "Upload Image", href: "/admin/upload_image", icon: Shield },
           { name: "Show And Delete Image", href: "/admin/show_image", icon: Shield },
+          { name: "Upload Video", href: "/admin/upload_video", icon: Shield },
+          { name: "Show And Delete Video", href: "/admin/show_video", icon: Shield },
           { name: "Users", href: "/admin/users", icon: User },
           { name: "Settings", href: "/admin/settings", icon: Settings },
         ]
