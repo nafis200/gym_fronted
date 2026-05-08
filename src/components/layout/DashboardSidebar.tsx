@@ -5,12 +5,17 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   Settings,
-  Calendar,
   User,
   LogOut,
   ChevronLeft,
   ChevronRight,
   Shield,
+  UploadCloud,
+  Image,
+  Video,
+  Film,
+  Users,
+  Key,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -27,27 +32,26 @@ const DashboardSidebar = () => {
   const { user, logout } = useAuthStore();
   const [collapsed, setCollapsed] = useState(false);
 
-  // ✅ NAV based on role
   const navItems =
     user?.role === "ADMIN"
       ? [
-          { name: "Admin Dashboard", href: "/admin", icon: Shield },
-          { name: "Upload Image", href: "/admin/upload_image", icon: Shield },
-          { name: "Show And Delete Image", href: "/admin/show_image", icon: Shield },
-          { name: "Upload Video", href: "/admin/upload_video", icon: Shield },
-          { name: "Show And Delete Video", href: "/admin/show_video", icon: Shield },
-          { name: "Users", href: "/admin/users", icon: User },
-          { name: "Change Password", href: "/admin/changepassword", icon: User },
-          { name: "Profile", href: "/admin/profile", icon: Settings },
+          { name: "Admin Dashboard", href: "/admin", icon: LayoutDashboard },
+          { name: "Upload Image", href: "/admin/upload_image", icon: UploadCloud },
+          { name: "Show And Delete Image", href: "/admin/show_image", icon: Image },
+          { name: "Upload Video", href: "/admin/upload_video", icon: Video },
+          { name: "Show And Delete Video", href: "/admin/show_video", icon: Film },
+          { name: "Users", href: "/admin/users", icon: Users },
+          { name: "Change Password", href: "/admin/changepassword", icon: Key },
+          { name: "Profile", href: "/admin/profile", icon: User },
         ]
       : [
           { name: "Dashboard", href: "/user", icon: LayoutDashboard },
-          { name: "Bookings", href: "/user/bookings", icon: Calendar },
+          { name: "Show Image", href: "/user/show_image", icon: Image },
+          { name: "Show Video", href: "/user/show_video", icon: Video },
+          { name: "Change Password", href: "/user/changepassword", icon: Key },
           { name: "Profile", href: "/user/profile", icon: User },
-          { name: "Settings", href: "/user/settings", icon: Settings },
         ];
 
-  // optional safety redirect (simple)
   if (typeof window !== "undefined") {
     if (user?.role === "ADMIN" && pathname.startsWith("/user")) {
       router.push("/admin");
@@ -70,12 +74,12 @@ const DashboardSidebar = () => {
   };
 
   return (
-    <div className={cn(
-      "relative flex flex-col h-[calc(100vh-4rem)] border-r bg-card transition-all",
-      collapsed ? "w-16" : "w-64"
-    )}>
-      
-      {/* NAV */}
+    <div
+      className={cn(
+        "relative flex flex-col h-[calc(100vh-4rem)] border-r bg-card transition-all",
+        collapsed ? "w-16" : "w-64"
+      )}
+    >
       <div className="flex-1 overflow-y-auto py-4">
         <nav className="px-3 space-y-1">
           {navItems.map((item) => {
@@ -100,7 +104,6 @@ const DashboardSidebar = () => {
         </nav>
       </div>
 
-      {/* LOGOUT */}
       <div className="p-4 border-t">
         <Button
           variant="ghost"
@@ -115,7 +118,6 @@ const DashboardSidebar = () => {
         </Button>
       </div>
 
-      {/* TOGGLE */}
       <button
         onClick={() => setCollapsed(!collapsed)}
         className="absolute -right-3 top-1/2 h-6 w-6 border rounded-full bg-background flex items-center justify-center"
