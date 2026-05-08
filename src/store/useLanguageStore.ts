@@ -9,6 +9,13 @@ export type Language = {
 
 export const languages: Language[] = [
     { code: "en", name: "English", nativeName: "English" },
+    { code: "bn", name: "Bangla", nativeName: "বাংলা" },
+    { code: "hi", name: "Hindi", nativeName: "हिन्दी" },
+    { code: "ko", name: "Korean", nativeName: "한국어" },
+    { code: "ja", name: "Japanese", nativeName: "日本語" },
+    { code: "zh", name: "Chinese", nativeName: "中文" },
+    { code: "zh-TW", name: "Taiwanese", nativeName: "繁體中文" },
+    { code: "de", name: "German", nativeName: "Deutsch" },
     { code: "id", name: "Indonesia", nativeName: "Bahasa Indonesia" },
     { code: "ms", name: "Melayu", nativeName: "Bahasa Melayu" },
     { code: "tr", name: "Turkish", nativeName: "Türkçe" },
@@ -23,7 +30,7 @@ interface LanguageState {
 export const useLanguageStore = create<LanguageState>()(
     persist(
         (set) => ({
-            currentLanguage: languages[0], // English default
+            currentLanguage: languages[0],
             setLanguage: (code) => {
                 const lang = languages.find((l) => l.code === code) || languages[0];
                 set({ currentLanguage: lang });
