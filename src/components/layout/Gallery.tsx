@@ -3,8 +3,10 @@
 import { useTranslation } from "@/hooks/useTranslation";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { imageService, GalleryImage } from "@/services/imageService";
 
-const galleryImages = [
+const defaultImages = [
   "https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=2070&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=2070&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2070&auto=format&fit=crop",
@@ -17,6 +19,23 @@ const galleryImages = [
 
 export function Gallery() {
   const { t } = useTranslation();
+  const [images, setImages] = useState<GalleryImage[]>([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const data = await imageService.getGalleryImages();
+        if (data.length > 0) {
+          setImages(data);
+        } else {
+          setImages(defaultImages.map((url, index) => ({ id: `default-${index}`, url })));
+        }
+      } catch {
+        setImages(defaultImages.map((url, index) => ({ id: `default-${index}`, url })));
+      }
+    };
+    fetchImages();
+  }, []);
 
   return (
     <section className="py-20 overflow-hidden bg-background">
@@ -44,7 +63,7 @@ export function Gallery() {
         <motion.div
           className="flex gap-6"
           animate={{
-            x: [0, -50 * (galleryImages.length / 2)],
+            x: [0, -50 * (images.length / 2)],
           }}
           transition={{
             x: {
@@ -55,13 +74,13 @@ export function Gallery() {
             },
           }}
         >
-          {[...galleryImages, ...galleryImages].map((src, index) => (
+          {[...images, ...images].map((img, index) => (
             <div
               key={index}
               className="flex-shrink-0 w-80 h-52 rounded-2xl overflow-hidden shadow-xl relative group"
             >
               <Image
-                src={src}
+                src={img.url}
                 alt={`Gallery ${index + 1}`}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
