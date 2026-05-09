@@ -33,7 +33,7 @@ const ShowUsers = () => {
       setLoading(true);
 
       const res = await api.get("/auth");
-
+      
       const data = res.data?.data || res.data || [];
 
       setUsers(Array.isArray(data) ? data : []);

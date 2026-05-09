@@ -49,6 +49,7 @@ export default function UserDashboardPage() {
           api.get("/image"),
           api.get("/video")
         ]);
+        console.log(uRes);
         setUsers(uRes.data.data || []);
         setImages(iRes.data.data || []);
         setVideos(vRes.data.data || []);

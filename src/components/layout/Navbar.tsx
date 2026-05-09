@@ -44,6 +44,7 @@ const Navbar = () => {
     { href: "/about", label: t("nav.about") },
     { href: "/contact", label: t("nav.contact") },
     { href: "/blog", label: "Blog" },
+    { href: "/appointment", label: "Appointment" }
   ];
 
   const handleLogout = async () => {
