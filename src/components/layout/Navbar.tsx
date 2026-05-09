@@ -11,6 +11,7 @@ import {
   Settings,
   LayoutDashboard,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/store/useAuthStore";
@@ -42,6 +43,7 @@ const Navbar = () => {
   const links = [
     { href: "/about", label: t("nav.about") },
     { href: "/contact", label: t("nav.contact") },
+    { href: "/blog", label: "Blog" },
   ];
 
   const handleLogout = async () => {
@@ -116,13 +118,28 @@ const Navbar = () => {
               key={link.href}
               href={link.href}
               className={cn(
-                "text-sm font-medium hover:text-primary",
+                "relative text-sm font-medium hover:text-primary",
                 pathname === link.href
                   ? "text-primary"
                   : "text-muted-foreground"
               )}
             >
-              {link.label}
+              {pathname === link.href && (
+                <motion.div
+                  layoutId="navbar-active"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                />
+              )}
+              <motion.span
+                whileHover={{ y: -2 }}
+                whileTap={{ y: 0 }}
+                className="relative z-10"
+              >
+                {link.label}
+              </motion.span>
             </Link>
           ))}
         </nav>
@@ -165,20 +182,40 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden border-t p-4 space-y-3">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="block py-2"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden border-t p-4 space-y-3 overflow-hidden"
+          >
+            {links.map((link, index) => (
+              <motion.div
+                key={link.href}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className={cn(
+                    "block py-2",
+                    pathname === link.href
+                      ? "text-primary font-medium"
+                      : "text-muted-foreground"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

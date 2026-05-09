@@ -10,6 +10,9 @@ export interface Blog {
   category?: string;
   tags: string[];
   status: BlogStatus;
+  authorId?: number;
+  authorName?: string;
+  authorImage?: string;
   seoMetaTitle?: string;
   seoMetaDescription?: string;
   createdAt: string;
