@@ -14,8 +14,9 @@ import {
   Film,
   Users,
   Key,
-  DoorOpen,  // Using DoorOpen for "Open"
-  DoorClosed, // Using DoorClosed for "Close"
+  DoorOpen,
+  DoorClosed,
+  BookOpen,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -41,6 +42,7 @@ const DashboardSidebar = () => {
     user?.role === "ADMIN"
       ? [
           { name: "Admin Dashboard", href: "/admin", icon: LayoutDashboard },
+          { name: "Blog", href: "/admin/blog", icon: BookOpen },
           { name: "Upload Image", href: "/admin/upload_image", icon: UploadCloud },
           { name: "Show Image", href: "/admin/show_image", icon: Image },
           { name: "Upload Video", href: "/admin/upload_video", icon: Video },
