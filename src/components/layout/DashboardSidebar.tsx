@@ -52,6 +52,8 @@ const DashboardSidebar = () => {
           { name: "Users", href: "/admin/users", icon: Users },
           { name: "Appointments", href: "/admin/appointment", icon: CalendarCheck },
           { name: "Change Password", href: "/admin/changepassword", icon: Key },
+          { name: "Create Notice", href: "/admin/createNotice", icon: CalendarCheck },
+          { name: "Delete Notice", href: "/admin/ShowNotice", icon: Key },
           { name: "Profile", href: "/admin/profile", icon: UserCircle },
         ]
       : [
