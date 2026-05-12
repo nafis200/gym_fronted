@@ -40,7 +40,9 @@ const Navbar = () => {
   const router = useRouter();
 
   const links = [
+    { href: "/", label: "Home" },
     { href: "/about", label: t("nav.about") },
+    { href: "/members", label: "Team" },
     { href: "/contact", label: t("nav.contact") },
     { href: "/blog", label: "Blog" },
     { href: "/appointment", label: "Appointment" },
