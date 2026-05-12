@@ -42,22 +42,35 @@ export default function UserDashboardPage() {
   }, [user?.id, fetchUserBookings]);
 
   useEffect(() => {
-    const load = async () => {
-      try {
-        const [uRes, iRes, vRes] = await Promise.all([
-          api.get("/auth"),
-          api.get("/image"),
-          api.get("/video")
-        ]);
-        setUsers(uRes.data.data || []);
-        setImages(iRes.data.data || []);
-        setVideos(vRes.data.data || []);
-      } catch (err) {
-        console.error("Dashboard load error:", err);
-      }
-    };
-    load();
-  }, []);
+  let isMounted = true;
+
+  const load = async () => {
+    try {
+      const [uRes, iRes, vRes] = await Promise.all([
+        api.get("/auth"),
+        api.get("/image"),
+        api.get("/video"),
+      ]);
+
+      if (!isMounted) return;
+
+      setUsers(uRes.data.data || []);
+      setImages(iRes.data.data || []);
+      setVideos(vRes.data.data || []);
+    } catch (err) {
+      console.error("Dashboard fetch error:", err);
+    }
+  };
+
+  load();
+
+  const interval = setInterval(load, 8000); // auto refresh every 5s
+
+  return () => {
+    isMounted = false;
+    clearInterval(interval);
+  };
+}, []);
 
   if (!user) return null;
 

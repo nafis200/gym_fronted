@@ -8,7 +8,6 @@ import {
   X,
   DollarSign,
   LogOut,
-  Settings,
   LayoutDashboard,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -45,7 +44,7 @@ const Navbar = () => {
     { href: "/contact", label: t("nav.contact") },
     { href: "/blog", label: "Blog" },
     { href: "/appointment", label: "Appointment" },
-    {href : "/notice", label: "Notice"}
+    { href: "/notice", label: "Notice" }
   ];
 
   const handleLogout = async () => {
@@ -83,15 +82,12 @@ const Navbar = () => {
               <p className="text-xs text-muted-foreground">{user.email}</p>
             </div>
           </DropdownMenuLabel>
-
           <DropdownMenuSeparator />
-
           <DropdownMenuItem onClick={() => router.push("/user")}>
             <LayoutDashboard className="mr-2 h-4 w-4" />
             Dashboard
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-
           <DropdownMenuItem
             onClick={handleLogout}
             className="text-destructive"
@@ -107,13 +103,10 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
-
-        {/* Logo */}
         <Link href="/" className="text-xl font-bold">
           FitNest
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex gap-6">
           {links.map((link) => (
             <Link
@@ -121,9 +114,7 @@ const Navbar = () => {
               href={link.href}
               className={cn(
                 "relative text-sm font-medium hover:text-primary",
-                pathname === link.href
-                  ? "text-primary"
-                  : "text-muted-foreground"
+                pathname === link.href ? "text-primary" : "text-muted-foreground"
               )}
             >
               {pathname === link.href && (
@@ -146,14 +137,11 @@ const Navbar = () => {
           ))}
         </nav>
 
-        {/* Actions */}
         <div className="hidden md:flex items-center gap-3">
           <ThemeToggle />
-
           <Button variant="ghost" size="icon">
             <DollarSign className="h-4 w-4" />
           </Button>
-
           {user ? (
             <UserMenu />
           ) : (
@@ -163,7 +151,6 @@ const Navbar = () => {
                   Login
                 </Button>
               </Link>
-
               <Link href="/register">
                 <Button size="sm">Register</Button>
               </Link>
@@ -171,19 +158,15 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Mobile */}
         <div className="flex md:hidden items-center gap-2">
           <ThemeToggle />
-
           {user && <UserMenu />}
-
           <button onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X /> : <Menu />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -191,30 +174,50 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden border-t p-4 space-y-3 overflow-hidden"
+            className="md:hidden border-t p-4 space-y-4 overflow-hidden bg-background"
           >
-            {links.map((link, index) => (
-              <motion.div
-                key={link.href}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Link
+            <div className="flex flex-col space-y-2">
+              {links.map((link, index) => (
+                <motion.div
                   key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className={cn(
-                    "block py-2",
-                    pathname === link.href
-                      ? "text-primary font-medium"
-                      : "text-muted-foreground"
-                  )}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  {link.label}
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className={cn(
+                      "block py-2 text-base",
+                      pathname === link.href
+                        ? "text-primary font-medium"
+                        : "text-muted-foreground"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            {!user && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex flex-col gap-2 pt-4 border-t"
+              >
+                <Link href="/login" onClick={() => setIsOpen(false)}>
+                  <Button variant="outline" className="w-full">
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/register" onClick={() => setIsOpen(false)}>
+                  <Button className="w-full">
+                    Register
+                  </Button>
                 </Link>
               </motion.div>
-            ))}
+            )}
           </motion.div>
         )}
       </AnimatePresence>
