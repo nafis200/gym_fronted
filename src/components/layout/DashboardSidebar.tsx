@@ -19,6 +19,8 @@ import {
   BookOpen,
   CalendarCheck,
   UserCircle,
+  FileText,
+  Info,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -44,7 +46,10 @@ const DashboardSidebar = () => {
     user?.role === "ADMIN"
       ? [
           { name: "Admin Dashboard", href: "/admin", icon: LayoutDashboard },
+          { name: "About Management", href: "/admin/about", icon: Info },
+          { name: "Members", href: "/admin/members", icon: Users },
           { name: "Blog", href: "/admin/blog", icon: BookOpen },
+          { name: "Notices", href: "/admin/notices", icon: FileText },
           { name: "Upload Image", href: "/admin/upload_image", icon: UploadCloud },
           { name: "Show Image", href: "/admin/show_image", icon: Image },
           { name: "Upload Video", href: "/admin/upload_video", icon: Video },

@@ -5,7 +5,7 @@ import { motion, useInView, useMotionValue, useTransform, animate } from "framer
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { aboutService } from "@/services/aboutService";
+import { getAllAboutData } from "@/services/aboutService";
 import {
   Download,
   Mail,
@@ -40,9 +40,9 @@ export default function AboutPage() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const result = await aboutService.getAllAboutData();
+        const result = await getAllAboutData();
         console.log("About page data fetched:", result);
-        setData(result);
+        setData(result.data);
       } catch (err) {
         setError("Failed to load about page data");
         console.error("About page fetch error:", err);

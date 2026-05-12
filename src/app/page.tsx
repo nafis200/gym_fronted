@@ -12,7 +12,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "@/hooks/useTranslation";
-import { aboutService } from "@/services/aboutService";
+import { getAllAboutData } from "@/services/aboutService";
 import { Hero } from "@/components/layout/Hero";
 import { Statistics } from "@/components/layout/Statistics";
 import { Gallery } from "@/components/layout/Gallery";
@@ -33,8 +33,8 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await aboutService.getAllAboutData();
-        setAboutData(result);
+        const result = await getAllAboutData();
+        setAboutData(result.data);
       } catch (err) {
         console.error("Failed to fetch about data for home page:", err);
       } finally {

@@ -123,6 +123,8 @@ export interface AboutGalleryImage {
   updatedAt: string;
 }
 
+export type GalleryImage = AboutGalleryImage;
+
 export interface AboutData {
   aboutPage: AboutPage | null;
   skills: Skill[];
