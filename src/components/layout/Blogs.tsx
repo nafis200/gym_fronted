@@ -1,53 +1,34 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Calendar, User } from "lucide-react";
 import Link from "next/link";
-
-interface BlogPost {
-  id: number;
-  image: string;
-  category: string;
-  titleKey: string;
-  excerptKey: string;
-  date: string;
-  author: string;
-}
-
-const blogPosts: BlogPost[] = [
-  {
-    id: 1,
-    image: "https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=2070&auto=format&fit=crop",
-    category: "Training",
-    titleKey: "blog.post1.title",
-    excerptKey: "blog.post1.excerpt",
-    date: "2024-01-15",
-    author: "Marcus Thompson",
-  },
-  {
-    id: 2,
-    image: "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=2070&auto=format&fit=crop",
-    category: "Nutrition",
-    titleKey: "blog.post2.title",
-    excerptKey: "blog.post2.excerpt",
-    date: "2024-01-10",
-    author: "Sarah Johnson",
-  },
-  {
-    id: 3,
-    image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2070&auto=format&fit=crop",
-    category: "Wellness",
-    titleKey: "blog.post3.title",
-    excerptKey: "blog.post3.excerpt",
-    date: "2024-01-05",
-    author: "Mike Chen",
-  },
-];
+import { Skeleton } from "@/components/ui/skeleton";
+import { publicBlogService } from "@/services/publicBlogService";
+import { Blog } from "@/types/blog";
 
 export function Blogs() {
   const { t } = useTranslation();
+  const [posts, setPosts] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await publicBlogService.getAll({ limit: 3 });
+        const data = res?.data || [];
+        setPosts(Array.isArray(data) ? data.slice(0, 3) : []);
+      } catch (err) {
+        console.error("Failed to fetch blogs:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
 
   return (
     <section className="py-20 bg-slate-50 dark:bg-slate-900/50">
@@ -67,48 +48,69 @@ export function Blogs() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {blogPosts.map((post, index) => (
-            <motion.article
-              key={post.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="bg-background rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
-            >
-              <div className="relative h-48 overflow-hidden group">
-                <Image
-                  src={post.image}
-                  alt={t(post.titleKey)}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute top-4 left-4 bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                  {post.category}
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="bg-background rounded-2xl overflow-hidden shadow-md">
+                <Skeleton className="h-48 w-full rounded-none" />
+                <div className="p-6 space-y-3">
+                  <Skeleton className="h-5 w-24" />
+                  <Skeleton className="h-6 w-full" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-2/3" />
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 line-clamp-2">
-                  {t(post.titleKey)}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 line-clamp-3">
-                  {t(post.excerptKey)}
-                </p>
-                <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>{post.date}</span>
+            ))}
+          </div>
+        ) : posts.length === 0 ? (
+          <p className="text-center text-slate-500">No blog posts available yet.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {posts.map((post, index) => (
+              <motion.article
+                key={post.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
+              >
+                <Link href={`/blog/${post.slug}`}>
+                  <div className="bg-background rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow group cursor-pointer h-full">
+                    <div className="relative h-48 overflow-hidden">
+                      <Image
+                        src={post.featuredImage || "https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=2070&auto=format&fit=crop"}
+                        alt={post.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute top-4 left-4 bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                        {post.category || "General"}
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 line-clamp-2">
+                        {post.title}
+                      </h3>
+                      <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 line-clamp-3">
+                        {post.shortDescription || ""}
+                      </p>
+                      <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <User className="w-4 h-4" />
+                          <span>{post.authorName || "Anonymous"}</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <User className="w-4 h-4" />
-                    <span>{post.author}</span>
-                  </div>
-                </div>
-              </div>
-            </motion.article>
-          ))}
-        </div>
+                </Link>
+              </motion.article>
+            ))}
+          </div>
+        )}
 
         <div className="text-center mt-10">
           <Link href="/blog">
