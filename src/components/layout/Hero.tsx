@@ -1,11 +1,23 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/useTranslation";
 
-export function Hero() {
+interface HeroProps {
+  aboutPage?: {
+    name?: string | null;
+    designation?: string | null;
+    tagline?: string | null;
+    introText?: string | null;
+    profileImage?: string | null;
+    yearsOfExperience?: number | null;
+  } | null;
+}
+
+export function Hero({ aboutPage }: HeroProps) {
   const { t } = useTranslation();
 
   return (
@@ -16,19 +28,19 @@ export function Hero() {
         <div className="space-y-8 lg:sticky lg:top-16">
           
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
-            {t("hero.title")} <span className="text-indigo-600">.</span>
+            {aboutPage?.name || t("hero.title")}<span className="text-indigo-600">.</span>
           </h1>
           
           <div className="bg-orange-500 text-white px-3 py-1 rounded-full inline-block">
-            <p className="font-medium text-xs">{t("hero.badgeTitle")}</p>
+            <p className="font-medium text-xs">{aboutPage?.designation || t("hero.badgeTitle")}</p>
           </div>
           
           <div className="space-y-6 max-w-lg">
             <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-              {t("hero.description1")}
+              {aboutPage?.tagline || t("hero.description1")}
             </p>
             <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-              {t("hero.description2")}
+              {aboutPage?.introText || t("hero.description2")}
             </p>
           </div>
 
@@ -47,7 +59,9 @@ export function Hero() {
               <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?u=1" alt="Student" />
               <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?u=2" alt="Student" />
               <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?u=3" alt="Student" />
-              <div className="w-10 h-10 rounded-full border-2 border-white bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-500">+12k</div>
+              <div className="w-10 h-10 rounded-full border-2 border-white bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-500">
+                {aboutPage?.yearsOfExperience ? `+${aboutPage.yearsOfExperience}k` : "+12k"}
+              </div>
             </div>
             <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{t("hero.communityStats")}</p>
           </div>
@@ -55,17 +69,15 @@ export function Hero() {
 
         {/* Right Side: Masonry Image Grid */}
         <div className="space-y-6">
-          {/* Large Top Image */}
           <div className="rounded-[2.5rem] overflow-hidden shadow-xl aspect-[4/3] bg-slate-100 dark:bg-slate-800 relative group">
             <Image 
-              src="https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=2070&auto=format&fit=crop"
-              alt="Cricket Match"
+              src={aboutPage?.profileImage || "https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=2070&auto=format&fit=crop"}
+              alt="Sports"
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </div>
 
-          {/* Bottom Two Images */}
           <div className="grid grid-cols-2 gap-6">
             <div className="rounded-[2.5rem] overflow-hidden shadow-xl aspect-square bg-slate-100 dark:bg-slate-800 relative group">
               <Image 
@@ -85,7 +97,6 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Secondary Gallery Item */}
           <div className="rounded-[2.5rem] overflow-hidden shadow-xl aspect-[16/9] bg-slate-100 dark:bg-slate-800 relative group">
             <Image 
               src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2070&auto=format&fit=crop"

@@ -64,19 +64,33 @@ function StatSkeleton() {
   );
 }
 
-const stats = [
-  { icon: Users, value: 12000, suffix: "+", labelKey: "students" },
-  { icon: Award, value: 15, suffix: "+", labelKey: "awards" },
-  { icon: Clock, value: 10, suffix: "+", labelKey: "years" },
-  { icon: TrendingUp, value: 98, suffix: "%", labelKey: "success" },
-];
-
 interface StatisticsProps {
   isLoading?: boolean;
+  statistics?: Array<{
+    title: string;
+    count: number;
+    suffix: string;
+  }>;
 }
 
-export function Statistics({ isLoading }: StatisticsProps) {
+const icons = [Users, Award, Clock, TrendingUp];
+
+export function Statistics({ isLoading, statistics }: StatisticsProps) {
   const { t } = useTranslation();
+
+  const stats = statistics?.length
+    ? statistics.map((s, i) => ({
+        icon: icons[i % icons.length],
+        value: s.count,
+        suffix: s.suffix || "+",
+        label: s.title,
+      }))
+    : [
+        { icon: Users, value: 12000, suffix: "+", label: t("statistics.students") },
+        { icon: Award, value: 15, suffix: "+", label: t("statistics.awards") },
+        { icon: Clock, value: 10, suffix: "+", label: t("statistics.years") },
+        { icon: TrendingUp, value: 98, suffix: "%", label: t("statistics.success") },
+      ];
 
   return (
     <section className="py-20 bg-slate-50 dark:bg-slate-900/50">
@@ -106,7 +120,7 @@ export function Statistics({ isLoading }: StatisticsProps) {
             </>
           ) : (
             stats.map((stat, index) => (
-              <StatItem key={index} {...stat} index={index} label={t(`statistics.${stat.labelKey}`)} />
+              <StatItem key={index} {...stat} index={index} label={stat.label} />
             ))
           )}
         </div>

@@ -6,6 +6,11 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { imageService, GalleryImage } from "@/services/imageService";
 
+interface GalleryImageItem {
+  imageUrl: string;
+  caption?: string | null;
+}
+
 const defaultImages = [
   "https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=2070&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=2070&auto=format&fit=crop",
@@ -17,25 +22,33 @@ const defaultImages = [
   "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2070&auto=format&fit=crop",
 ];
 
-export function Gallery() {
+interface GalleryProps {
+  aboutGallery?: GalleryImageItem[];
+}
+
+export function Gallery({ aboutGallery }: GalleryProps) {
   const { t } = useTranslation();
-  const [images, setImages] = useState<GalleryImage[]>([]);
+  const [images, setImages] = useState<{ url: string }[]>([]);
 
   useEffect(() => {
-    const fetchImages = async () => {
+    const load = async () => {
+      if (aboutGallery?.length) {
+        setImages(aboutGallery.map((g) => ({ url: g.imageUrl })));
+        return;
+      }
       try {
         const data = await imageService.getGalleryImages();
         if (data.length > 0) {
           setImages(data);
         } else {
-          setImages(defaultImages.map((url, index) => ({ id: `default-${index}`, url })));
+          setImages(defaultImages.map((url) => ({ url })));
         }
       } catch {
-        setImages(defaultImages.map((url, index) => ({ id: `default-${index}`, url })));
+        setImages(defaultImages.map((url) => ({ url })));
       }
     };
-    fetchImages();
-  }, []);
+    load();
+  }, [aboutGallery]);
 
   return (
     <section className="py-20 overflow-hidden bg-background">

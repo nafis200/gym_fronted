@@ -2,19 +2,22 @@
 
 import { useTranslation } from "@/hooks/useTranslation";
 import { motion } from "framer-motion";
-import { Quote } from "lucide-react";
+import { Quote, Star } from "lucide-react";
 import Image from "next/image";
 
-interface Testimonial {
-  id: number;
-  image: string;
-  name: string;
-  role: string;
-  quoteKey: string;
-  rating: number;
+interface TestimonialItem {
+  studentName: string;
+  designation?: string | null;
+  message: string;
+  rating?: number;
+  image?: string | null;
 }
 
-const testimonials: Testimonial[] = [
+interface TestimonialsProps {
+  testimonials?: TestimonialItem[];
+}
+
+const defaultTestimonials = [
   {
     id: 1,
     image: "https://i.pravatar.cc/150?u=1",
@@ -65,8 +68,26 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-export function Testimonials() {
+export function Testimonials({ testimonials }: TestimonialsProps) {
   const { t } = useTranslation();
+
+  const items = testimonials?.length
+    ? testimonials.map((tm) => ({
+        id: tm.studentName,
+        image: tm.image || `https://i.pravatar.cc/150?u=${encodeURIComponent(tm.studentName)}`,
+        name: tm.studentName,
+        role: tm.designation || "Student",
+        quoteText: tm.message,
+        rating: tm.rating || 5,
+      }))
+    : defaultTestimonials.map((tm) => ({
+        id: tm.id,
+        image: tm.image,
+        name: tm.name,
+        role: tm.role,
+        quoteText: t(tm.quoteKey),
+        rating: tm.rating,
+      }));
 
   return (
     <section className="py-20 overflow-hidden bg-background">
@@ -94,7 +115,7 @@ export function Testimonials() {
         <motion.div
           className="flex gap-6"
           animate={{
-            x: [0, 50 * (testimonials.length / 2)],
+            x: [0, 50 * (items.length / 2)],
           }}
           transition={{
             x: {
@@ -105,35 +126,35 @@ export function Testimonials() {
             },
           }}
         >
-          {[...testimonials, ...testimonials].map((testimonial, index) => (
+          {[...items, ...items].map((item, index) => (
             <div
               key={index}
               className="flex-shrink-0 w-96 bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 shadow-md"
             >
               <Quote className="w-10 h-10 text-indigo-600/30 mb-4" />
-              <p className="text-slate-700 dark:text-slate-200 mb-6 italic">
-                {t(testimonial.quoteKey)}
+              <p className="text-slate-700 dark:text-slate-200 mb-6 italic line-clamp-4">
+                {item.quoteText}
               </p>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full overflow-hidden relative">
                   <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
+                    src={item.image}
+                    alt={item.name}
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div>
                   <h4 className="font-semibold text-slate-900 dark:text-white">
-                    {testimonial.name}
+                    {item.name}
                   </h4>
                   <p className="text-sm text-slate-500 dark:text-slate-400">
-                    {testimonial.role}
+                    {item.role}
                   </p>
                 </div>
                 <div className="ml-auto flex gap-1">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="text-yellow-500">★</span>
+                  {[...Array(Math.min(item.rating, 5))].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-yellow-500 text-yellow-500" />
                   ))}
                 </div>
               </div>
