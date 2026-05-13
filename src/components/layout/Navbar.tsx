@@ -61,14 +61,14 @@ const Navbar = () => {
     }
   };
 
-  const UserMenu = () => {
+  const UserMenu = ({ isMobile = false }: { isMobile?: boolean }) => {
     if (!user) return null;
 
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-            <Avatar className="h-8 w-8">
+          <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+            <Avatar className="h-9 w-9 border">
               <AvatarImage src={user.profilePhoto || ""} alt={user.name} />
               <AvatarFallback>
                 {user.name.charAt(0).toUpperCase()}
@@ -77,7 +77,7 @@ const Navbar = () => {
           </Button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent className="w-56" align="end" forceMount>
+        <DropdownMenuContent className="w-56" align={isMobile ? "start" : "end"} forceMount>
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium">{user.name}</p>
@@ -85,7 +85,7 @@ const Navbar = () => {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => router.push("/user")}>
+          <DropdownMenuItem onClick={() => { router.push("/user"); setIsOpen(false); }}>
             <LayoutDashboard className="mr-2 h-4 w-4" />
             Dashboard
           </DropdownMenuItem>
@@ -104,41 +104,37 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container mx-auto px-4 flex h-16 items-center justify-between">
         <Link href="/" className="text-xl font-bold">
           FitNest
         </Link>
 
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-6">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={cn(
-                "relative text-sm font-medium hover:text-primary",
+                "relative text-sm font-medium transition-colors hover:text-primary",
                 pathname === link.href ? "text-primary" : "text-muted-foreground"
               )}
             >
               {pathname === link.href && (
                 <motion.div
                   layoutId="navbar-active"
-                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
+                  className="absolute -bottom-[21px] left-0 right-0 h-0.5 bg-primary"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
                 />
               )}
-              <motion.span
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 0 }}
-                className="relative z-10"
-              >
-                {link.label}
-              </motion.span>
+              {link.label}
             </Link>
           ))}
         </nav>
 
+        {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-3">
           <ThemeToggle />
           <Button variant="ghost" size="icon">
@@ -160,66 +156,76 @@ const Navbar = () => {
           )}
         </div>
 
-        <div className="flex md:hidden items-center gap-2">
+        {/* Mobile Toggle & Avatar */}
+        <div className="flex md:hidden items-center gap-3">
           <ThemeToggle />
-          {user && <UserMenu />}
-          <button onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X /> : <Menu />}
-          </button>
+          {user && <UserMenu isMobile={true} />}
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Menu"
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
         </div>
       </div>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden border-t p-4 space-y-4 overflow-hidden bg-background"
+            className="md:hidden border-t bg-background overflow-hidden"
           >
-            <div className="flex flex-col space-y-2">
-              {links.map((link, index) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={cn(
-                      "block py-2 text-base",
-                      pathname === link.href
-                        ? "text-primary font-medium"
-                        : "text-muted-foreground"
-                    )}
+            <div className="container mx-auto px-4 py-6 flex flex-col space-y-4">
+              <div className="flex flex-col space-y-3">
+                {links.map((link, index) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
                   >
-                    {link.label}
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className={cn(
+                        "block py-2 text-lg font-medium",
+                        pathname === link.href
+                          ? "text-primary"
+                          : "text-muted-foreground hover:text-primary"
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Mobile Auth Buttons - Always rendered when user is not logged in */}
+              {!user && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="flex flex-col gap-3 pt-4 border-t"
+                >
+                  <Link href="/login" onClick={() => setIsOpen(false)} className="w-full">
+                    <Button variant="outline" className="w-full justify-center">
+                      Login
+                    </Button>
+                  </Link>
+                  <Link href="/register" onClick={() => setIsOpen(false)} className="w-full">
+                    <Button className="w-full justify-center">
+                      Register
+                    </Button>
                   </Link>
                 </motion.div>
-              ))}
+              )}
             </div>
-
-            {!user && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex flex-col gap-2 pt-4 border-t"
-              >
-                <Link href="/login" onClick={() => setIsOpen(false)}>
-                  <Button variant="outline" className="w-full">
-                    Login
-                  </Button>
-                </Link>
-                <Link href="/register" onClick={() => setIsOpen(false)}>
-                  <Button className="w-full">
-                    Register
-                  </Button>
-                </Link>
-              </motion.div>
-            )}
           </motion.div>
         )}
       </AnimatePresence>
