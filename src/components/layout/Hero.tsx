@@ -59,7 +59,7 @@ export function Hero({ aboutPage }: HeroProps) {
           </div>
 
           {/* Trusted By / Community Stats */}
-          <div className="pt-8 flex items-center gap-4">
+          {/* <div className="pt-8 flex items-center gap-4">
             <div className="flex -space-x-3">
               <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?u=1" alt="Student" />
               <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?u=2" alt="Student" />
@@ -69,7 +69,7 @@ export function Hero({ aboutPage }: HeroProps) {
               </div>
             </div>
             <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{t("hero.communityStats")}</p>
-          </div>
+          </div> */}
         </div>
 
         {/* Right Side: Masonry Image Grid */}
