@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -45,12 +46,16 @@ export function Hero({ aboutPage }: HeroProps) {
           </div>
 
           <div className="flex flex-wrap gap-4 pt-4">
-            <Button className="bg-indigo-600 text-white px-8 py-4 rounded font-bold flex items-center gap-3 text-lg hover:bg-indigo-700 hover:shadow-lg hover:-translate-y-0.5 transition-all">
-              {t("hero.cta")} <ArrowRight className="w-5 h-5" />
-            </Button>
-            <Button variant="outline" className="border-2 border-slate-200 text-slate-700 px-8 py-4 rounded font-bold flex items-center gap-3 hover:bg-slate-50 transition-colors">
-              {t("hero.ctaSecondary")}
-            </Button>
+            <Link href="/contact">
+              <Button className="bg-indigo-600 text-white px-8 py-4 rounded font-bold flex items-center gap-3 text-lg hover:bg-indigo-700 hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                {t("hero.cta")} <ArrowRight className="w-5 h-5" />
+              </Button>
+            </Link>
+            <Link href="/tutorials">
+              <Button variant="outline" className="border-2 border-slate-200 text-slate-700 px-8 py-4 rounded font-bold flex items-center gap-3 hover:bg-slate-50 transition-colors">
+                {t("hero.ctaSecondary")}
+              </Button>
+            </Link>
           </div>
 
           {/* Trusted By / Community Stats */}
