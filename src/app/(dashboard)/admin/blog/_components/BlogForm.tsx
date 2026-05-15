@@ -14,7 +14,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { BookOpen, Save, Upload, Loader2, Image as ImageIcon, X } from "lucide-react";
+import {
+  BookOpen,
+  Save,
+  Upload,
+  Loader2,
+  Image as ImageIcon,
+  X,
+} from "lucide-react";
 import { blogService } from "@/services/blogService";
 import { BlogFormData, BlogStatus } from "@/types/blog";
 import { cn } from "@/lib/utils";
@@ -64,16 +71,18 @@ export default function BlogForm({ mode, blogId }: BlogFormProps) {
 
   const handleChange = (
     field: keyof BlogFormData,
-    value: string | string[] | undefined
+    value: string | string[] | undefined,
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
 
     if (field === "title" && mode === "create") {
-      const slug = value
-        .toString()
+      const safeValue = (value ?? "").toString();
+
+      const slug = safeValue
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/(^-|-$)/g, "");
+
       setFormData((prev) => ({ ...prev, slug }));
     }
   };
@@ -102,7 +111,10 @@ export default function BlogForm({ mode, blogId }: BlogFormProps) {
       toast.success("Image uploaded successfully");
     } catch (error: unknown) {
       const err = error as { response?: { data?: { message?: string } } };
-      toast.error(err?.response?.data?.message || "Failed to upload image. Please try again.");
+      toast.error(
+        err?.response?.data?.message ||
+          "Failed to upload image. Please try again.",
+      );
     } finally {
       setUploading(false);
     }
@@ -261,7 +273,7 @@ export default function BlogForm({ mode, blogId }: BlogFormProps) {
                   isDragging
                     ? "border-primary bg-primary/5"
                     : "border-muted-foreground/30 hover:border-muted-foreground/50",
-                  uploading && "opacity-50 pointer-events-none"
+                  uploading && "opacity-50 pointer-events-none",
                 )}
               >
                 <input
@@ -276,7 +288,9 @@ export default function BlogForm({ mode, blogId }: BlogFormProps) {
                   {uploading ? (
                     <div className="flex flex-col items-center gap-2">
                       <Loader2 className="w-8 h-8 animate-spin text-primary" />
-                      <span className="text-sm text-muted-foreground">Uploading...</span>
+                      <span className="text-sm text-muted-foreground">
+                        Uploading...
+                      </span>
                     </div>
                   ) : (
                     <div className="flex flex-col items-center gap-2">
@@ -316,7 +330,7 @@ export default function BlogForm({ mode, blogId }: BlogFormProps) {
                   e.target.value
                     .split(",")
                     .map((t) => t.trim())
-                    .filter(Boolean)
+                    .filter(Boolean),
                 )
               }
               placeholder="tag1, tag2, tag3"
@@ -328,7 +342,9 @@ export default function BlogForm({ mode, blogId }: BlogFormProps) {
           <Label htmlFor="status">Status</Label>
           <Select
             value={formData.status || "DRAFT"}
-            onValueChange={(value) => handleChange("status", value as BlogStatus)}
+            onValueChange={(value) =>
+              handleChange("status", value as BlogStatus)
+            }
           >
             <SelectTrigger>
               <SelectValue />
@@ -357,7 +373,9 @@ export default function BlogForm({ mode, blogId }: BlogFormProps) {
             <Textarea
               id="seoMetaDescription"
               value={formData.seoMetaDescription || ""}
-              onChange={(e) => handleChange("seoMetaDescription", e.target.value)}
+              onChange={(e) =>
+                handleChange("seoMetaDescription", e.target.value)
+              }
               placeholder="SEO description (max 320 chars)"
               rows={3}
               maxLength={320}

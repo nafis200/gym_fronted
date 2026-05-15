@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -8,29 +9,19 @@ const api = axios.create({
     },
 });
 
-api.interceptors.request.use((config) => {
-    if (typeof window !== 'undefined') {
-        const stored = localStorage.getItem('auth-storage');
-        if (stored) {
-            try {
-                const parsed = JSON.parse(stored);
-                const token = parsed?.state?.accessToken;
-                if (token && typeof token === 'string' && token.length > 0) {
-                    config.headers.Authorization = `Bearer ${token}`;
-                }
-            } catch {}
+// Add a request interceptor to include the Authorization header
+api.interceptors.request.use(
+    (config) => {
+        const token = Cookies.get('accessToken');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        } else {
+            // Check for Bearer token if it's already there or handle cases where it might be raw
+            // For this project, we'll assume the cookie has the token
         }
-    }
-    return config;
-});
-
-api.interceptors.response.use(
-    (response) => response,
+        return config;
+    },
     (error) => {
-        if (error.response?.status === 401 && typeof window !== 'undefined') {
-            localStorage.removeItem('auth-storage');
-            window.location.href = '/login';
-        }
         return Promise.reject(error);
     }
 );

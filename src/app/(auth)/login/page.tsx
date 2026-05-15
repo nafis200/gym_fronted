@@ -42,6 +42,7 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       const response = await api.post("/auth/login", data);
+      console.log(response)
       const { user, accessToken } = response.data.data;
       login(user, accessToken);
       toast.success("Logged in successfully!");
