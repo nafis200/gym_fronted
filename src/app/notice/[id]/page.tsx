@@ -35,7 +35,7 @@ const SingleNotice = () => {
 
   const fetchNotice = async () => {
     try {
-      const res = await api.get(`/notice/${id}`);
+      const res = await api.get(`/notices/${id}`);
       setNotice(res.data.data);
     } catch (error) {
       console.error(error);

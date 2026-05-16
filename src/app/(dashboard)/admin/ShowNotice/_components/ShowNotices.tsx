@@ -38,7 +38,7 @@ const ShowNotices = () => {
 
   const fetchNotices = async () => {
     try {
-      const response = await api.get("/notice");
+      const response = await api.get("/notices");
       setNotices(response.data.data || response.data);
     } catch (error: any) {
       toast.error("Failed to load notices");
@@ -56,7 +56,7 @@ const ShowNotices = () => {
 
     setIsDeleting(id);
     try {
-      await api.delete(`/notice/${id}`);
+      await api.delete(`/notices/${id}`);
       toast.success("Notice deleted successfully");
       setNotices((prev) => prev.filter((notice) => notice.id !== id));
     } catch (error: any) {
@@ -79,7 +79,7 @@ const ShowNotices = () => {
               Manage and view all published academic notices.
             </CardDescription>
           </div>
-          <Link href="/notices/create">
+          <Link href="/admin/createNotice">
             <Button variant="default" className="flex items-center gap-2">
               <Plus className="h-4 w-4" />
               Add New

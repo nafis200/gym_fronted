@@ -32,7 +32,7 @@ const Notices = () => {
 
   const fetchNotices = async () => {
     try {
-      const response = await api.get("/notice");
+      const response = await api.get("/notices");
       setNotices(response.data.data || response.data);
     } catch (error) {
       console.error("Failed to load notices");

@@ -1,17 +1,7 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-
-interface User {
-    id: number;
-    name: string;
-    email: string;
-    role: string;
-    verified: boolean;
-    status: string;
-    profilePhoto?: string | null;
-    contactNumber?: string | null;
-    createdAt: string;
-}
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import Cookies from "js-cookie";
+import { User } from "@/types/auth";
 
 interface AuthState {
     user: User | null;
@@ -28,15 +18,17 @@ export const useAuthStore = create<AuthState>()(
             user: null,
             accessToken: null,
             isAuthenticated: false,
-            login: (user, accessToken) => set({ user, accessToken, isAuthenticated: true }),
-            logout: () => set({ user: null, accessToken: null, isAuthenticated: false }),
+            login: (user, accessToken) =>
+                set({ user, accessToken, isAuthenticated: true }),
+            logout: () =>
+                set({ user: null, accessToken: null, isAuthenticated: false }),
             updateUser: (updates) =>
                 set((state) => ({
                     user: state.user ? { ...state.user, ...updates } : null,
                 })),
         }),
         {
-            name: 'auth-storage',
+            name: "auth-storage",
         }
     )
 );

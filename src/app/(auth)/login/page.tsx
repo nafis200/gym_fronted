@@ -13,7 +13,7 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import api from "@/lib/axios";
-
+import Cookies from "js-cookie";
 import {
   Card,
   CardContent,
@@ -23,16 +23,21 @@ import {
 } from "@/components/ui/card";
 
 const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  email: z.string().email(),
+  password: z.string().min(6),
 });
 
 type LoginForm = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
   });
+
   const { login } = useAuthStore();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -42,9 +47,12 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       const response = await api.post("/auth/login", data);
-      console.log(response)
       const { user, accessToken } = response.data.data;
-      login(user, accessToken);
+
+      Cookies.set("accessToken", accessToken, { expires: 7 });
+
+      useAuthStore.getState().login(user, accessToken);
+
       toast.success("Logged in successfully!");
       router.push("/");
     } catch (error: any) {
@@ -65,25 +73,19 @@ export default function LoginPage() {
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="john@example.com" {...register("email")} />
-              {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+              <Label>Email</Label>
+              <Input type="email" {...register("email")} />
+              {errors.email && (
+                <p className="text-sm text-red-500">{errors.email.message}</p>
+              )}
             </div>
 
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
-                {/* Forgot Password Link */}
-                <Link 
-                  href="/forgot-password" 
-                  className="text-xs text-primary hover:underline"
-                >
-                  Forgot password?
-                </Link>
-              </div>
+              <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Input
                   id="password"
+                  placeholder="Enter your password"
                   type={showPassword ? "text" : "password"}
                   className="pr-10"
                   {...register("password")}
@@ -93,24 +95,27 @@ export default function LoginPage() {
                   className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
                 </button>
               </div>
-              {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
+              {errors.password && (
+                <p className="text-sm text-destructive">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Signing in..." : "Sign In"}
+              {isLoading ? "Loading..." : "Sign In"}
             </Button>
           </form>
-          
-          <div className="text-center text-sm mt-6">
-            <p className="text-muted-foreground">
-              Don&apos;t have an account?{" "}
-              <Link href="/register" className="text-primary hover:underline">
-                Create one
-              </Link>
-            </p>
+
+          <div className="text-center mt-4">
+            <Link href="/register">Create account</Link>
           </div>
         </CardContent>
       </Card>

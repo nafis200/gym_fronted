@@ -76,7 +76,7 @@ const CreateNotice = () => {
         formData.append("pdf", pdfFile);
       }
 
-      const response = await api.post("/notice/create-notice", formData, {
+      const response = await api.post("/notices/create-notice", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -86,7 +86,6 @@ const CreateNotice = () => {
         toast.success("Notice created successfully!");
         reset();
         setPdfFile(null);
-        router.push("/notices");
       }
     } catch (error: any) {
       const message = error.response?.data?.message || "Failed to create notice.";
