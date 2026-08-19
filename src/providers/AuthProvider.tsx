@@ -11,16 +11,12 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
     useEffect(() => {
         const fetchProfile = async () => {
-            console.log("AuthProvider: Checking session...");
             try {
                 const response = await api.get("/auth/me");
-                console.log("AuthProvider: Profile response success:", response.data.success);
                 if (response.data.success) {
-                    login(response.data.data, ""); 
-                    console.log("AuthProvider: Logged in as:", response.data.data.email);
+                    login(response.data.data, accessToken as string); 
                 }
             } catch (error: any) {
-                console.log("AuthProvider: session check failed", error.response?.status || error.message);
                 if (error.response?.status === 401 || error.response?.status === 403) {
                     if (isAuthenticated) logout();
                 }

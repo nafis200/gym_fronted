@@ -18,13 +18,16 @@ export default function Footer() {
           {/* Cyber Security Lab Content */}
           <div>
             <h4 className="font-semibold mb-4 text-foreground">
-              Cyber Security Lab
+              Quick Links
             </h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="hover:text-primary transition-colors cursor-default">
-                Penetration Testing Area
+                About Us
               </li>
               <li className="hover:text-primary transition-colors cursor-default">
+                Research & Development
+              </li>
+              {/* <li className="hover:text-primary transition-colors cursor-default">
                 CTF & War-Room Access
               </li>
               <li className="hover:text-primary transition-colors cursor-default">
@@ -32,20 +35,20 @@ export default function Footer() {
               </li>
               <li className="hover:text-primary transition-colors cursor-default">
                 Network Forensics
-              </li>
+              </li> */}
             </ul>
           </div>
 
           {/* Gymnasium Content */}
           <div>
             <h4 className="font-semibold mb-4 text-foreground">
-              Power & Agility Gym
+              Schedule & Services
             </h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="hover:text-primary transition-colors cursor-default">
-                Strength & Conditioning
+                4 PM - 10 P.M (Mon-Fri)
               </li>
-              <li className="hover:text-primary transition-colors cursor-default">
+              {/* <li className="hover:text-primary transition-colors cursor-default">
                 Cardio Endurance Zone
               </li>
               <li className="hover:text-primary transition-colors cursor-default">
@@ -53,7 +56,7 @@ export default function Footer() {
               </li>
               <li className="hover:text-primary transition-colors cursor-default">
                 Personal Training
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -65,9 +68,9 @@ export default function Footer() {
             <address className="not-italic text-sm text-muted-foreground space-y-2">
               <p>Jashore University of Science and Technology</p>
               <p>Jashore-7408, Bangladesh</p>
-              <p className="pt-2 text-primary font-mono font-medium">
+              {/* <p className="pt-2 text-primary font-mono font-medium">
                 lab@just.edu.bd
-              </p>
+              </p> */}
             </address>
           </div>
         </div>

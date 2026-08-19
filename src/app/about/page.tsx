@@ -41,7 +41,6 @@ export default function AboutPage() {
       try {
         setLoading(true);
         const result = await getAllAboutData();
-        console.log("About page data fetched:", result);
         setData(result.data);
       } catch (err) {
         setError("Failed to load about page data");
@@ -807,14 +806,14 @@ function QuoteSection({ quote, author }: { quote?: string | null; author?: strin
 function GallerySection({ gallery }: { gallery?: any[] }) {
   const [selected, setSelected] = useState<string | null>(null);
   const fallback = [
-    "https://images.unsplash.com/photo-1461896836934-0a0f56a9b9043e?w=400&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=400&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=400&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=400&h=400&fit=crop",
+    "/personal/Uzzal4/1.jpeg",
+    "/personal/Uzzal4/9.jpeg",
+    "/personal/Uzzal4/10.jpeg",
+    "/personal/Uzzal4/11.jpeg",
+    "/personal/Uzzal4/12.jpeg",
   ];
-  const images = gallery?.length ? gallery : fallback.map((url, i) => ({ id: i, imageUrl: url, caption: "" }));
+  const images = (gallery?.length ? gallery : fallback.map((url, i) => ({ id: i, imageUrl: url, caption: "" })))
+    .map((img: any, i: number) => ({ ...img, imageUrl: fallback[i % fallback.length] ?? img.imageUrl }));
 
   return (
     <section className="py-24 bg-background">
@@ -829,7 +828,7 @@ function GallerySection({ gallery }: { gallery?: any[] }) {
                 onClick={() => setSelected(img.imageUrl)}
                 whileHover={{ scale: 1.02 }}
               >
-                <Image src={img.imageUrl} alt={img.caption || "Gallery"} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                <Image src={img.imageUrl} alt={img.caption || "Gallery"} fill sizes="(max-width: 768px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 {img.caption && (
                   <div className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-full group-hover:translate-y-0 transition-transform duration-300">

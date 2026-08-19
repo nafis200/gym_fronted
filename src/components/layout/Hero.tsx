@@ -76,7 +76,7 @@ export function Hero({ aboutPage }: HeroProps) {
         <div className="space-y-6">
           <div className="rounded-[2.5rem] overflow-hidden shadow-xl aspect-[4/3] bg-slate-100 dark:bg-slate-800 relative group">
             <Image 
-              src={aboutPage?.profileImage || "https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=2070&auto=format&fit=crop"}
+              src={aboutPage?.profileImage || "/personal/Uzzal4/3.jpeg"}
               alt="Sports"
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -86,7 +86,7 @@ export function Hero({ aboutPage }: HeroProps) {
           <div className="grid grid-cols-2 gap-6">
             <div className="rounded-[2.5rem] overflow-hidden shadow-xl aspect-square bg-slate-100 dark:bg-slate-800 relative group">
               <Image 
-                src="https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=2070&auto=format&fit=crop"
+                src="/personal/Uzzal4/1.jpeg"
                 alt="Jump Training"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -94,7 +94,7 @@ export function Hero({ aboutPage }: HeroProps) {
             </div>
             <div className="rounded-[2.5rem] overflow-hidden shadow-xl aspect-square bg-slate-100 dark:bg-slate-800 relative group">
               <Image 
-                src="https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=2070&auto=format&fit=crop"
+                src="/personal/Uzzal2/5.jpeg"
                 alt="Football Game"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -104,7 +104,7 @@ export function Hero({ aboutPage }: HeroProps) {
 
           <div className="rounded-[2.5rem] overflow-hidden shadow-xl aspect-[16/9] bg-slate-100 dark:bg-slate-800 relative group">
             <Image 
-              src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2070&auto=format&fit=crop"
+              src="/personal/Uzzal2/7.jpeg"
               alt="Athletic Progress"
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"

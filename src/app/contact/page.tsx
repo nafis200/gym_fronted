@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -7,9 +8,41 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send, Clock, MessageSquare } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { getContactInfo, ContactInfo } from "@/services/contactService";
+
+const DEFAULT_CONTACT: ContactInfo[] = [
+  { id: 1, type: "phone", value: "+1 (234) 567-890", order: 0, createdAt: "", updatedAt: "" } as ContactInfo,
+  { id: 2, type: "phone", value: "+1 (234) 567-891", order: 1, createdAt: "", updatedAt: "" } as ContactInfo,
+  { id: 3, type: "email", value: "info@luxestay.com", order: 0, createdAt: "", updatedAt: "" } as ContactInfo,
+  { id: 4, type: "email", value: "support@luxestay.com", order: 1, createdAt: "", updatedAt: "" } as ContactInfo,
+  { id: 5, type: "address", value: "123 Luxury Avenue,\nGrand City, GC 10001", order: 0, createdAt: "", updatedAt: "" } as ContactInfo,
+  { id: 6, type: "hours", value: "Mon - Sun: 24/7\nReception: 24h", order: 0, createdAt: "", updatedAt: "" } as ContactInfo,
+];
+
+const CONTACT_META: Record<string, { icon: typeof Phone; titleKey: string }> = {
+  phone: { icon: Phone, titleKey: "contact.info.phone" },
+  email: { icon: Mail, titleKey: "contact.info.email" },
+  address: { icon: MapPin, titleKey: "contact.info.address" },
+  hours: { icon: Clock, titleKey: "contact.info.hours" },
+};
 
 export default function ContactPage() {
   const { t } = useTranslation();
+  const [contact, setContact] = useState<ContactInfo[]>(DEFAULT_CONTACT);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    getContactInfo()
+      .then((res) => {
+        if (res.data.length) setContact(res.data);
+      })
+      .catch((err) => console.error("Failed to fetch contact info:", err))
+      .finally(() => setLoaded(true));
+  }, []);
+
+  const grouped = (["phone", "email", "address", "hours"] as const)
+    .map((type) => ({ type, items: contact.filter((c) => c.type === type) }))
+    .filter((g) => g.items.length > 0 || !loaded);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -36,45 +69,27 @@ export default function ContactPage() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <Card className="border-none shadow-sm bg-muted/30">
-                  <CardContent className="pt-6 space-y-3">
-                    <div className="h-10 w-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                      <Phone className="h-5 w-5" />
-                    </div>
-                    <h3 className="font-semibold">{t("contact.info.phone")}</h3>
-                    <p className="text-sm text-muted-foreground">+1 (234) 567-890<br />+1 (234) 567-891</p>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-none shadow-sm bg-muted/30">
-                  <CardContent className="pt-6 space-y-3">
-                    <div className="h-10 w-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                      <Mail className="h-5 w-5" />
-                    </div>
-                    <h3 className="font-semibold">{t("contact.info.email")}</h3>
-                    <p className="text-sm text-muted-foreground">info@luxestay.com<br />support@luxestay.com</p>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-none shadow-sm bg-muted/30">
-                  <CardContent className="pt-6 space-y-3">
-                    <div className="h-10 w-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                      <MapPin className="h-5 w-5" />
-                    </div>
-                    <h3 className="font-semibold">{t("contact.info.address")}</h3>
-                    <p className="text-sm text-muted-foreground">123 Luxury Avenue,<br />Grand City, GC 10001</p>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-none shadow-sm bg-muted/30">
-                  <CardContent className="pt-6 space-y-3">
-                    <div className="h-10 w-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                      <Clock className="h-5 w-5" />
-                    </div>
-                    <h3 className="font-semibold">{t("contact.info.hours")}</h3>
-                    <p className="text-sm text-muted-foreground">{t("contact.info.hoursVal")}<br />Reception: 24h</p>
-                  </CardContent>
-                </Card>
+                {grouped.map((group) => {
+                  const meta = CONTACT_META[group.type];
+                  const Icon = meta.icon;
+                  return (
+                    <Card key={group.type} className="border-none shadow-sm bg-muted/30">
+                      <CardContent className="pt-6 space-y-3">
+                        <div className="h-10 w-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <h3 className="font-semibold">{t(meta.titleKey)}</h3>
+                        <p className="text-sm text-muted-foreground">
+                          {group.items.map((item) => (
+                            <span key={item.id} className="block whitespace-pre-line">
+                              {item.label ? `${item.label}: ${item.value}` : item.value}
+                            </span>
+                          ))}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
               </div>
 
               <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10 flex items-start gap-4">

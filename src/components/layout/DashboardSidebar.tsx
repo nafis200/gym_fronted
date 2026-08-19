@@ -21,6 +21,7 @@ import {
   UserCircle,
   FileText,
   Info,
+  Phone,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -47,6 +48,7 @@ const DashboardSidebar = () => {
       ? [
           { name: "Admin Dashboard", href: "/admin", icon: LayoutDashboard },
           { name: "About Management", href: "/admin/about", icon: Info },
+          { name: "Contact Management", href: "/admin/contact", icon: Phone },
           { name: "Members", href: "/admin/members", icon: Users },
           { name: "Blog", href: "/admin/blog", icon: BookOpen },
           { name: "Upload Image", href: "/admin/upload_image", icon: UploadCloud },
